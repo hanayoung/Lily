@@ -2,44 +2,63 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { TouchableOpacity, Text, Image, View, StyleSheet } from 'react-native'
 import { RootStackParamList } from "../../AppInner";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import userSlice from '../slices/user';
+import { useAppDispatch } from "../store";
+
 
 type Q1ScreenProps = NativeStackScreenProps<RootStackParamList,"Q1">;
 
 function Q1({ navigation }: Q1ScreenProps) {
+  const dispatch = useAppDispatch();
+  
+  const onHandle=(ans:string)=>{
+    save(ans)
+    navigation.navigate("Q2")
+
+  }
+  const save = async (ans:string) => {
+    try {
+      // await AsyncStorage.setItem("q1", ans);
+      dispatch(
+        userSlice.actions.setQ1(ans),
+      );
+    } catch (e) {
+      // 오류 예외 처리
+    }
+  }
   return (
     <View style={styles.container}>
-      <Text style={styles.question}>
-        Q2. 힘든 일이 있을 때 어떻게 극복하는 편인가요?
+      <Text style={styles.text}>
+        Q1. 당신은 행복한가요?
       </Text>
 
       <Image
         style={styles.image}
-        source={{
-          uri:
-            "https://user-images.githubusercontent.com/86648265/232454342-f172d4b7-0c91-401c-9223-a1833385115d.png",
-        }}
+        source={require('../assets/Lily.png')}
+        onError={(error) => console.log('Error loading image:', error)}
       />
 
       <TouchableOpacity
-        onPress={() => navigation.navigate("Q2")}
+        onPress={() => onHandle("0")}
         style={styles.button}>
         <Text style={styles.buttonText}>
-          친구들한테 얘기하면서 극복하는 편이야
+          응
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate("Q2")}
+        onPress={() => onHandle("1")}
         style={styles.button}>
         <Text style={styles.buttonText}>
-          혼자 극복할 수 있는 방법을 찾아보려고 하는 편이야
+          ...
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        style={styles.goBack}>
-        <Text style={styles.goBackText}>이전으로</Text>
+        style={styles.backButton}>
+        <Text style={styles.backButtonText}>이전으로</Text>
       </TouchableOpacity>
     </View>
   );
@@ -49,44 +68,49 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  question: {
+  text: {
     marginTop: 12,
+    marginHorizontal: 4,
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
   },
   image: {
     height: 70,
-    marginVertical: 20,
+    width:70,
+    marginVertical: '10%',
   },
   button: {
     marginTop: 10,
+    width: 200,
+    padding: 10,
+    borderRadius: 5,
     borderWidth: 2,
     borderColor: '#a5a5a5',
-    width: 120,
-    padding: 8,
-    borderRadius: 6,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
+    backgroundColor: 'white',
+    shadowColor: '#8d8d8d',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
   },
   buttonText: {
-    color: '#777777',
-    fontWeight: 'bold',
     fontSize: 14,
+    fontWeight: 'bold',
+    color: '#777777',
     textAlign: 'center',
   },
-  goBack: {
+  backButton: {
     position: 'absolute',
-    bottom: 15,
+    width:50,
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 2,
+    bottom: 10,
   },
-  goBackText: {
+  backButtonText: {
+    fontSize: 10,
     color: '#8d8d8d',
   },
 });

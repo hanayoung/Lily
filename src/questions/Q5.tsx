@@ -6,20 +6,20 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAppDispatch } from "../store";
 import userSlice from '../slices/user';
 
-type Q4ScreenProps = NativeStackScreenProps<RootStackParamList,"Q4">;
-function Q4({ navigation }: Q4ScreenProps) {
+type Q5ScreenProps = NativeStackScreenProps<RootStackParamList,"Q5">;
+function Q5({ navigation }: Q5ScreenProps) {
   const dispatch = useAppDispatch();
   
   const onHandle=(ans:string)=>{
     save(ans)
-    navigation.navigate("Q5")
+    navigation.navigate("Q6")
 
   }
   const save = async (ans:string) => {
     try {
-      // await AsyncStorage.setItem("q4", ans);
+      // await AsyncStorage.setItem("q5", ans);
       dispatch(
-        userSlice.actions.setQ4(ans),
+        userSlice.actions.setQ5(ans),
       );
     } catch (e) {
       // 오류 예외 처리
@@ -28,7 +28,7 @@ function Q4({ navigation }: Q4ScreenProps) {
    return (
     <View style={styles.container}>
     <Text style={styles.text}>
-      Q4. 어려운 일이 너무 많이 쌓여서 {"\n"} 극복하지 못할 것 같다고 느낀 적이 있나요?
+      Q5. 상대방이 위로가 필요하다고 할 때, {"\n"} 어떻게 위로해주는 편인가요?
     </Text>
     <Image
       style={styles.image}
@@ -38,13 +38,14 @@ function Q4({ navigation }: Q4ScreenProps) {
       onPress={() => onHandle("0")}
       style={styles.button}
     >
-      <Text style={styles.buttonText}>거의 없어</Text>
+      <Text style={styles.buttonText}>음.. 상대방의 감정을 우선시하는 편인것같아</Text>
     </TouchableOpacity>
     <TouchableOpacity
       onPress={() => onHandle("1")}
       style={styles.button}
     >
-      <Text style={styles.buttonText}>자주 그래</Text>
+      <Text style={styles.buttonText}>나는 상대방에게 도움이 되는 조언을 
+하려고하는 편인 것 같아!</Text>
     </TouchableOpacity>
     <TouchableOpacity
       style={styles.backButton}
@@ -102,4 +103,4 @@ function Q4({ navigation }: Q4ScreenProps) {
   },
 });
 
-export default Q4;
+export default Q5;

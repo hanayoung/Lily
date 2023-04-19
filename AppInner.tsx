@@ -10,6 +10,11 @@ import Q1 from './src/questions/Q1';
 import Q2 from './src/questions/Q2';
 import Q3 from './src/questions/Q3';
 import Q4 from './src/questions/Q4';
+import Q5 from './src/questions/Q5';
+import Q6 from './src/questions/Q6';
+import Q7 from './src/questions/Q7';
+import { useSelector } from 'react-redux';
+import { RootState } from './src/store/reducer';
 
 export type LoggedInParamList = {
   Main: undefined;
@@ -21,6 +26,9 @@ export type RootStackParamList = {
   Q2: undefined;
   Q3: undefined;
   Q4: undefined;
+  Q5: undefined;
+  Q6: undefined;
+  Q7: undefined;
 }; // 다른 페이지에서도 계속해서 가져다 쓸 거기 때문에 export
 
 
@@ -28,7 +36,7 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function AppInner() {
-    const isLoggedIn=false;  // 이걸로 처음 접속하는 사용자인지 아닌지 구분하기
+  const isLoggedIn = useSelector((state: RootState) => !!state.user.ok); // 이걸로 처음 접속하는 사용자인지 아닌지 구분하기
     
   return (
       isLoggedIn ? (
@@ -40,7 +48,11 @@ function AppInner() {
           />      
         </Tab.Navigator>
       ) : (
-        <Stack.Navigator>
+        <Stack.Navigator
+        screenOptions={{
+          headerShown: false
+        }}
+        >
           <Stack.Screen
             name="Start"
             component={Start}
@@ -64,6 +76,21 @@ function AppInner() {
           <Stack.Screen
             name="Q4"
             component={Q4}
+            options={{title: '네 번째 질문'}}
+          />
+          <Stack.Screen
+            name="Q5"
+            component={Q5}
+            options={{title: '세 번째 질문'}}
+          />
+          <Stack.Screen
+            name="Q6"
+            component={Q6}
+            options={{title: '네 번째 질문'}}
+          />
+          <Stack.Screen
+            name="Q7"
+            component={Q7}
             options={{title: '네 번째 질문'}}
           />
 
