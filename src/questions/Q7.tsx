@@ -22,7 +22,9 @@ function Q7({ navigation }: Q7ScreenProps) {
   let arr: string[]=[];
   
   const onHandleArr=(ans:string)=>{
-    arr.push(ans)
+    if(!arr.includes(ans)){
+      arr.push(ans)
+    }
   }
 
   const save =async () => {
