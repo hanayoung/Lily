@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
+import {Image} from 'react-native';
 import {
   StyleSheet,
   Text,
@@ -84,6 +85,7 @@ function Main() {
       return false;
     }
   };
+
   useEffect(() => {
     const today = moment().format('MM-DD');
     const checkKeyExist = async () => {
@@ -110,14 +112,16 @@ function Main() {
       }
     };
     checkKeyExist();
-  }, [isChanged]);
+  }, []);
 
   return (
     <View style={styles.centeredView}>
+      <Text>Click me!</Text>
       <TouchableOpacity onPress={() => load()}>
-        <Text>Click!</Text>
+        <Image style={styles.image} source={require('./assets/Lily.png')} />
       </TouchableOpacity>
-      <Text style={{marginHorizontal: '10%'}}>{todo}</Text>
+
+      <Text style={{marginHorizontal: '12%'}}>{todo}</Text>
       <Modal
         animationType="slide"
         transparent={true}
@@ -146,6 +150,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
+  },
+  image: {
+    height: 140,
+    width: 140,
+    marginBottom: '5%',
+    paddingTop: '-3%',
   },
   modalView: {
     margin: 20,
