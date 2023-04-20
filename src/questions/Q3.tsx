@@ -36,7 +36,7 @@ function Q3({navigation}: Q3ScreenProps) {
         <Text style={styles.buttonText}>자주 그래</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.goBack}
+        onPress={() => navigation.goBack()}
         style={styles.backButton}>
         <Text style={styles.backButtonText}>이전으로</Text>
       </TouchableOpacity>

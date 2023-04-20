@@ -9,13 +9,14 @@ function Start({navigation}: StartScreenProps) {
     <View style={styles.container}>
       <Text style={styles.text}>안녕하세요!</Text>
       <Text style={styles.text}>
-        저는 당신의 행복을 위해 저 먼 해피니스 아일랜드에서부터 날아온 릴리에요!
+        저는 당신의 행복을 위해 {'\n'}저 먼 해피니스 아일랜드에서부터 {'\n'}
+        날아온 릴리에요!
       </Text>
       <Text style={styles.text}>
-        당신이랑 더 가까워지기 위해 릴리가 준비한 몇 가지 질문이 있어요!
+        당신이랑 더 가까워지기 위해{'\n'}릴리가 준비한 몇 가지 질문이 있어요!
       </Text>
       <Text style={styles.text}>
-        몇 가지 안 되니까 잘 해주실거라고 릴리는 믿어요!
+        몇 가지 안 되니까 {'\n'}잘 해주실거라고 릴리는 믿어요!
       </Text>
       <Text style={styles.click}>Click me!</Text>
       <TouchableOpacity
@@ -40,15 +41,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    marginHorizontal: '25%',
+    marginHorizontal: '20%',
     fontSize: 15,
     textAlign: 'center',
     marginBottom: '3%',
   },
   click: {
     marginTop: '20%',
-    paddingBottom: '-20%',
-    color: 'grey',
+    marginBottom: -6,
+    color: '#AAA78E',
   },
 });
 
