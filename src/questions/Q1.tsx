@@ -89,15 +89,10 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    width: 50,
-    padding: 10,
-    borderRadius: 5,
-    borderWidth: 2,
-    bottom: 10,
+    bottom: 30,
   },
   backButtonText: {
-    fontSize: 10,
-    color: '#8d8d8d',
+    color: '#717171',
   },
 });
 

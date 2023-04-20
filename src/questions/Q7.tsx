@@ -48,8 +48,11 @@ function Q7({navigation}: Q7ScreenProps) {
       // 오류 예외 처리
     }
   };
+
+  //"그림그리기","노래듣기","산책하기","책읽기","영화보기","쇼핑하기"
   return (
     <View style={styles.container}>
+      <Text style={styles.text}>Q7. 당신이 선호하는 활동을 골라주세요!</Text>
       <Image style={styles.image} source={require('../assets/Lily.png')} />
       <TouchableOpacity onPress={() => onHandleArr('0')} style={styles.button}>
         <Text style={styles.buttonText}>그림그리기</Text>
@@ -91,10 +94,10 @@ const styles = StyleSheet.create({
   image: {
     height: 70,
     width: 70,
-    marginVertical: '10%',
+    marginVertical: '8%',
   },
   button: {
-    marginTop: 10,
+    marginBottom: 10,
     width: 200,
     padding: 10,
     borderRadius: 5,
@@ -114,16 +117,22 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    width: 50,
-    padding: 10,
-    borderRadius: 5,
-    borderWidth: 2,
-    bottom: 10,
+    width: 100,
+    padding: '10%',
+    // borderRadius: 5,
+    // borderWidth: 2,
+    // backgroundColor: '#f1f1f1',
+    // shadowColor: '#8d8d8d',
+    // shadowOffset: {width: 2, height: 2},
+    bottom: 20,
+    // borderColor: '#a5a5a5',
   },
   backButtonText: {
-    height: 4,
-    fontSize: 10,
-    color: '#8d8d8d',
+    // height: 4,
+    textAlign: 'center',
+    fontSize: 13,
+    fontWeight: 'bold',
+    color: '#777777',
   },
 });
 

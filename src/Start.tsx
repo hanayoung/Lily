@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    marginHorizontal: '20%',
+    marginHorizontal: '25%',
     fontSize: 15,
     textAlign: 'center',
     marginBottom: '3%',

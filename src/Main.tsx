@@ -14,7 +14,6 @@ import {
 function Main() {
   const [modalVisible, setModalVisible] = useState(false);
   const [todo, setTodo] = useState('');
-  const [comfort, setComfort] = useState('');
   const [advice, setAdvice] = useState('');
   const [isChanged, setIsChanged] = useState(false);
 
@@ -27,6 +26,19 @@ function Main() {
       // 오류 예외 처리
     }
   };
+
+  const close = async () => {
+    setModalVisible(!modalVisible);
+    const value = await AsyncStorage.getItem('myData');
+    if (value != null) {
+      if (Math.round(Math.random())) {
+        await getComfortApi(value);
+      } else {
+        await getAdviceApi(value);
+      }
+    }
+  };
+
   const getTodoApi = async (value: string) => {
     await axios
       .post(`${API_URL}/todo`, {value})
@@ -45,7 +57,7 @@ function Main() {
       .post(`${API_URL}/comfort`, {value})
       .then(res => {
         console.log(res.data.text);
-        setComfort(res.data.text);
+        setAdvice(res.data.text);
       })
       .catch(err => {
         console.log(err);
@@ -86,6 +98,13 @@ function Main() {
       const value = await AsyncStorage.getItem('myData');
       if (value != null) {
         await getTodoApi(value);
+        if (value != null) {
+          if (Math.round(Math.random())) {
+            await getComfortApi(value);
+          } else {
+            await getAdviceApi(value);
+          }
+        }
       } else {
         console.log('value is null');
       }
@@ -98,7 +117,7 @@ function Main() {
       <TouchableOpacity onPress={() => load()}>
         <Text>Click!</Text>
       </TouchableOpacity>
-      <Text>{todo}</Text>
+      <Text style={{marginHorizontal: '10%'}}>{todo}</Text>
       <Modal
         animationType="slide"
         transparent={true}
@@ -108,10 +127,10 @@ function Main() {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
+            <Text style={styles.modalText}>{advice}</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => close()}>
               <Text style={styles.textStyle}>Hide Modal</Text>
             </Pressable>
           </View>
