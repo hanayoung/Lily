@@ -74,6 +74,9 @@ function Main() {
     if(!isKeyExist){
       getUserData();
     }else{
+      const todayTodo = await AsyncStorage.getItem(today)
+      if(todayTodo!=null)
+      setTodo(todayTodo)
       console.log("it already has!")
     }
     }

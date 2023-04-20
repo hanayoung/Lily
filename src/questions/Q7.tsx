@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {TouchableOpacity,Text, Image,View, StyleSheet} from 'react-native'
+import {TouchableOpacity,Text, Image,View, StyleSheet, Alert} from 'react-native'
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../AppInner";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -20,15 +20,43 @@ function Q7({ navigation }: Q7ScreenProps) {
   const dispatch = useAppDispatch();
 
   let arr: string[]=[];
+
+  const [selectedButtons, setSelectedButtons] = useState<string[]>([]);
+
+  interface ButtonProps {
+    title: string;
+    onPress: () => void;
+    selected: boolean;
+  }
   
-  const onHandleArr=(ans:string)=>{
+  const Button = ({ title, onPress, selected }: ButtonProps) => {
+    return (
+      <TouchableOpacity
+        style={{ borderWidth: 2, borderColor: selected ? 'red' : 'black', padding: 15 }}
+        onPress={onPress}
+      >
+        <Text style={{ color: 'black' }}>{title}</Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const onHandleArr=(ans:string,buttonTitle:string)=>{
     if(!arr.includes(ans)){
       arr.push(ans)
+      if (selectedButtons.includes(buttonTitle)) {
+        setSelectedButtons(selectedButtons.filter((title) => title !== buttonTitle));
+      } else {
+        setSelectedButtons([...selectedButtons, buttonTitle]);
+      }
     }
   }
 
   const save =async () => {
     try {
+      if(arr.length==0){
+        Alert.alert("하나 이상 골라주세요!")
+      }
+      else{
       // await AsyncStorage.setItem("q3", ans);
       const myData = {
         q1: q1Data,
@@ -46,18 +74,39 @@ function Q7({ navigation }: Q7ScreenProps) {
         userSlice.actions.setOk(true)
       )
       await AsyncStorage.setItem('myData', JSON.stringify(myData));
-
+      }
     } catch (e) {
       // 오류 예외 처리
     }
   }
+
    return (
     <View style={styles.container}>
     <Image
       style={styles.image}
       source={require('../assets/Lily.png')}
     />
-    <TouchableOpacity
+     <Button
+        title="그림그리기"
+        onPress={() => onHandleArr("0",'그림그리기')}
+        selected={selectedButtons.includes('그림그리기')}
+      />
+       <Button
+        title="노래듣기"
+        onPress={() => onHandleArr("1",'노래듣기')}
+        selected={selectedButtons.includes('노래듣기')}
+      />
+       <Button
+        title="산책하기"
+        onPress={() => onHandleArr("2",'산책하기')}
+        selected={selectedButtons.includes('산책하기')}
+      />
+       <Button
+        title="책읽기"
+        onPress={() => onHandleArr("3",'책읽기')}
+        selected={selectedButtons.includes('책읽기')}
+      />
+    {/* <TouchableOpacity
       onPress={() => onHandleArr("0")}
       style={styles.button}
     >
@@ -92,7 +141,7 @@ function Q7({ navigation }: Q7ScreenProps) {
       style={styles.button}
     >
       <Text style={styles.buttonText}>쇼핑하기</Text>
-    </TouchableOpacity>
+    </TouchableOpacity> */}
     <TouchableOpacity
       style={styles.backButton}
       onPress={() => save()}
