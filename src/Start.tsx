@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
   },
   click: {
     marginTop: '20%',
-    marginBottom:-6,
-    color: '#AAA78E',
+    paddingBottom: '-20%',
+    color: 'grey',
   },
 });
 
