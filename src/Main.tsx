@@ -144,7 +144,7 @@ function Main() {
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => close()}>
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={styles.textStyle}>X</Text>
             </Pressable>
           </View>
         </View>
@@ -191,10 +191,14 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     backgroundColor: '#2196F3',
+    marginTop: '5%',
   },
   textStyle: {
     color: 'white',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    paddingHorizontal: '10%',
+    paddingVertical: 0,
+    fontSize: 10,
     textAlign: 'center',
   },
   modalText: {

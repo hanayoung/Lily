@@ -1,13 +1,15 @@
 
-import React, { useState } from "react";
-import {TouchableOpacity,Text, Image,View, StyleSheet, Alert} from 'react-native'
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../AppInner";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useAppDispatch } from "../store";
+import React, {useEffect, useState} from 'react';
+import {TouchableOpacity, Text, Image, View, StyleSheet} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../AppInner';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useAppDispatch} from '../store';
 import userSlice from '../slices/user';
-import { useSelector } from "react-redux";
-import { RootState } from "../store/reducer";
+import {useSelector} from 'react-redux';
+import {RootState} from '../store/reducer';
+import DoButton from '../components/DoButton';
+
 
 type Q7ScreenProps = NativeStackScreenProps<RootStackParamList, 'Q7'>;
 function Q7({navigation}: Q7ScreenProps) {
@@ -20,12 +22,15 @@ function Q7({navigation}: Q7ScreenProps) {
 
   const dispatch = useAppDispatch();
 
-  let arr: string[] = [];
+  const [buttonList, setButtonList] = useState({});
 
-  const onHandleArr = (ans: string) => {
-    if (!arr.includes(ans)) {
-      arr.push(ans);
-    }
+  const toggleButton = (index: number) => {
+    setButtonList(prevButtonLists => ({
+      ...prevButtonLists,
+      [index]: !prevButtonLists[index],
+    }));
+    console.log(buttonList);
+    console.log(Object.keys(buttonList).filter(key => buttonList[key]));
   };
 
   const save =async () => {
@@ -42,7 +47,7 @@ function Q7({navigation}: Q7ScreenProps) {
         q4: q4Data,
         q5: q5Data,
         q6: q6Data,
-        q7: arr,
+        q7: Object.keys(buttonList).filter(key => buttonList[key]),
       };
       // dispatch(
       //   userSlice.actions.setQ7(arr)
@@ -53,30 +58,46 @@ function Q7({navigation}: Q7ScreenProps) {
     } catch (e) {
       // 오류 예외 처리
     }
-  }
-  
-   return (
+
+  useEffect(() => {}, [buttonList]);
+
+  //"그림그리기","노래듣기","산책하기","책읽기","영화보기","쇼핑하기"
+  return (
+
     <View style={styles.container}>
       <Text style={styles.text}>Q7. 당신이 선호하는 활동을 골라주세요!</Text>
       <Image style={styles.image} source={require('../assets/Lily.png')} />
-      <TouchableOpacity onPress={() => onHandleArr('0')} style={styles.button}>
-        <Text style={styles.buttonText}>그림그리기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onHandleArr('1')} style={styles.button}>
-        <Text style={styles.buttonText}>노래듣기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onHandleArr('2')} style={styles.button}>
-        <Text style={styles.buttonText}>산책하기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onHandleArr('3')} style={styles.button}>
-        <Text style={styles.buttonText}>책읽기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onHandleArr('4')} style={styles.button}>
-        <Text style={styles.buttonText}>영화보기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onHandleArr('5')} style={styles.button}>
-        <Text style={styles.buttonText}>쇼핑하기</Text>
-      </TouchableOpacity>
+      <DoButton
+        title="그림그리기"
+        onClick={() => toggleButton(0)}
+        state={buttonList[0]}
+      />
+      <DoButton
+        title="노래듣기"
+        onClick={() => toggleButton(1)}
+        state={buttonList[1]}
+      />
+      <DoButton
+        title="산책하기"
+        onClick={() => toggleButton(2)}
+        state={buttonList[2]}
+      />
+      <DoButton
+        title="책읽기"
+        onClick={() => toggleButton(3)}
+        state={buttonList[3]}
+      />
+      <DoButton
+        title="영화보기"
+        onClick={() => toggleButton(4)}
+        state={buttonList[4]}
+      />
+      <DoButton
+        title="쇼핑하기"
+        onClick={() => toggleButton(5)}
+        state={buttonList[5]}
+      />
+
       <TouchableOpacity style={styles.backButton} onPress={() => save()}>
         <Text style={styles.backButtonText}>완료</Text>
       </TouchableOpacity>
