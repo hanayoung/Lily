@@ -45,10 +45,12 @@ function AppInner() {
   const dispatch = useAppDispatch();
 
     useEffect(()=>{
-      const checkLoggedIn=()=>{
-        const key =AsyncStorage.getItem('q1')
+      const checkLoggedIn=async()=>{
+        const key = await AsyncStorage.getItem("myData");
+        console.log("key is ",JSON.parse(key).q5);
         if(key!=null){
           dispatch(userSlice.actions.setOk(true));
+          dispatch(userSlice.actions.setQ5(JSON.parse(key).q5))
         }
       }
       checkLoggedIn();

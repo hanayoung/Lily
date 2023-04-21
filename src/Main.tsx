@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
+import { RootState } from './store/reducer';
 import {Image} from 'react-native';
 import {
   StyleSheet,
@@ -12,13 +13,15 @@ import {
   Alert,
   Pressable,
 } from 'react-native';
+import { useSelector } from 'react-redux';
 function Main() {
   const [modalVisible, setModalVisible] = useState(false);
   const [todo, setTodo] = useState('');
   const [advice, setAdvice] = useState('');
-
+  
   const API_URL = 'http://127.0.0.1:5000';
 
+  const mbti = useSelector((state: RootState) => state.user.q5); // F / T 구별 질문 답변 가져오기
   const load = () => {
     try {
       setModalVisible(!modalVisible);
@@ -110,7 +113,7 @@ function Main() {
     const getWord =async () =>{
       const value = await AsyncStorage.getItem('myData');
       if (value != null) {
-        if (Math.round(Math.random())) {
+        if (mbti=="0") {
           await getComfortApi(value);
         } else {
           await getAdviceApi(value);
