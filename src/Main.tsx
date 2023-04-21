@@ -1,104 +1,134 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
-import moment from "moment";
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, Alert, Pressable } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import moment from 'moment';
+import React, {useEffect, useState} from 'react';
+import {Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Modal,
+  Alert,
+  Pressable,
+} from 'react-native';
 function Main() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [todo,setTodo] = useState("");
-  const [comfort,setComfort] = useState("");
-  const [advice, setAdvice] = useState("");
-  const [isChanged,setIsChanged] = useState(false);
+  const [todo, setTodo] = useState('');
+  const [advice, setAdvice] = useState('');
 
-  const API_URL = "http://127.0.0.1:5000";
-  
+  const API_URL = 'http://127.0.0.1:5000';
+
   const load = () => {
     try {
-      setModalVisible(!modalVisible);   
+      setModalVisible(!modalVisible);
     } catch (e) {
       // 오류 예외 처리
     }
-  }
-  const getTodoApi = async(value:string)=>{
-    await axios.post(
-      `${API_URL}/todo`,
-      {value}
-    ).then((res)=>{
-      console.log(res.data.text)
-      setTodo(res.data.text)
-      setIsChanged(true)
-    }).catch((err)=>{
-      console.log(err)
-    })
-  }
-  
-  const getComfortApi =async (value:string) => {
-    await axios.post(
-      `${API_URL}/comfort`,
-      {value}
-    ).then((res)=>{
-      console.log(res.data.text)
-      setComfort(res.data.text)
-    }).catch((err)=>{
-      console.log(err)
-    })
-  }
-  
+  };
 
-  const getAdviceApi =async (value:string) => {
-    await axios.post(
-      `${API_URL}/advice`,
-      {value}
-    ).then((res)=>{
-      console.log(res.data.text)
-      setAdvice(res.data.text)
-    }).catch((err)=>{
-      console.log(err)
-    })
-  }
-  
-
-  const isKeyExists =async (today:string) => {
-    const isKeyExist = await AsyncStorage.getItem(today);
-    if(isKeyExist!==null){
-      return true;
+  const close = async () => {
+    setModalVisible(!modalVisible);
+    const value = await AsyncStorage.getItem('myData');
+    if (value != null) {
+      if (Math.round(Math.random())) {
+        await getComfortApi(value);
+      } else {
+        await getAdviceApi(value);
+      }
     }
-    else{
+  };
+
+  const getTodoApi = async (value: string) => {
+    await axios
+      .post(`${API_URL}/todo`, {value})
+      .then(res => {
+        console.log(res.data.text);
+        setTodo(res.data.text);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const getComfortApi = async (value: string) => {
+    await axios
+      .post(`${API_URL}/comfort`, {value})
+      .then(res => {
+        console.log(res.data.text);
+        setAdvice(res.data.text);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const getAdviceApi = async (value: string) => {
+    await axios
+      .post(`${API_URL}/advice`, {value})
+      .then(res => {
+        console.log(res.data.text);
+        setAdvice(res.data.text);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const isKeyExists = async (today: string) => {
+    const isKeyExist = await AsyncStorage.getItem(today);
+    if (isKeyExist !== null) {
+      setTodo(isKeyExist)
+      return true;
+    } else {
       return false;
     }
-  }
-  useEffect(()=>{
+  };
+
+  useEffect(() => {
     const today = moment().format('MM-DD');
-    const checkKeyExist=async () => {
+    const checkKeyExist = async () => {
       const isKeyExist = await isKeyExists(today);
     if(!isKeyExist){
       getUserData();
     }else{
-      const todayTodo = await AsyncStorage.getItem(today)
-      if(todayTodo!=null)
-      setTodo(todayTodo)
-      console.log("it already has!")
+      console.log("it already has key");
     }
     }
     const getUserData = async () => {
       const value = await AsyncStorage.getItem('myData');
-      if(value!=null){
+      if (value != null) {
         await getTodoApi(value);
-      }else{
-        console.log("value is null")
+      } else {
+        console.log('value is null');
+      }
+    };
+    checkKeyExist();
+  }, []);
+
+  useEffect(()=>{
+    const getWord =async () =>{
+      const value = await AsyncStorage.getItem('myData');
+      if (value != null) {
+        if (Math.round(Math.random())) {
+          await getComfortApi(value);
+        } else {
+          await getAdviceApi(value);
+        }
       }
     }
-    checkKeyExist();
-  },[isChanged])
+    getWord();
+  },[])
 
-   return(
-      <View style={styles.centeredView}>
-    <TouchableOpacity 
-    onPress={()=>load()}>
-      <Text>Click!</Text>
-    </TouchableOpacity>
-    <Text>{todo}</Text>
-    <Modal
+  return (
+    <View style={styles.centeredView}>
+      <Text>Click me!</Text>
+      <TouchableOpacity onPress={() => load()}>
+        <Image style={styles.image} source={require('./assets/Lily.png')} />
+      </TouchableOpacity>
+
+      <Text style={{marginHorizontal: '12%'}}>{todo}</Text>
+      <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -107,19 +137,18 @@ function Main() {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
+            <Text style={styles.modalText}>{advice}</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => close()}>
               <Text style={styles.textStyle}>Hide Modal</Text>
             </Pressable>
           </View>
         </View>
       </Modal>
     </View>
-   );
+  );
 }
-
 
 const styles = StyleSheet.create({
   centeredView: {
@@ -127,6 +156,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
+  },
+  image: {
+    height: 140,
+    width: 140,
+    marginBottom: '5%',
+    paddingTop: '-3%',
   },
   modalView: {
     margin: 20,

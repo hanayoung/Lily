@@ -13,8 +13,12 @@ import Q4 from './src/questions/Q4';
 import Q5 from './src/questions/Q5';
 import Q6 from './src/questions/Q6';
 import Q7 from './src/questions/Q7';
+import Q8 from './src/questions/Q8';
+import userSlice from './src/slices/user';
 import { useSelector } from 'react-redux';
 import { RootState } from './src/store/reducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAppDispatch } from './src/store';
 
 export type LoggedInParamList = {
   Main: undefined;
@@ -29,6 +33,7 @@ export type RootStackParamList = {
   Q5: undefined;
   Q6: undefined;
   Q7: undefined;
+  Q8: undefined;
 }; // 다른 페이지에서도 계속해서 가져다 쓸 거기 때문에 export
 
 
@@ -37,7 +42,18 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function AppInner() {
   const isLoggedIn = useSelector((state: RootState) => !!state.user.ok); // 이걸로 처음 접속하는 사용자인지 아닌지 구분하기
-    
+  const dispatch = useAppDispatch();
+
+    useEffect(()=>{
+      const checkLoggedIn=()=>{
+        const key =AsyncStorage.getItem('q1')
+        if(key!=null){
+          dispatch(userSlice.actions.setOk(true));
+        }
+      }
+      checkLoggedIn();
+    },[]) // 처음 접속하는 사용자인지 아닌지 판별하기 위해서
+
   return (
       isLoggedIn ? (
         <Tab.Navigator>
@@ -81,17 +97,22 @@ function AppInner() {
           <Stack.Screen
             name="Q5"
             component={Q5}
-            options={{title: '세 번째 질문'}}
+            options={{title: '다섯 번째 질문'}}
           />
           <Stack.Screen
             name="Q6"
             component={Q6}
-            options={{title: '네 번째 질문'}}
+            options={{title: '여섯 번째 질문'}}
           />
           <Stack.Screen
             name="Q7"
             component={Q7}
-            options={{title: '네 번째 질문'}}
+            options={{title: '마지막 질문'}}
+          />
+           <Stack.Screen
+            name="Q8"
+            component={Q8}
+            options={{title: '릴리 고르기'}}
           />
 
         </Stack.Navigator>

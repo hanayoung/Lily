@@ -1,58 +1,44 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
-import { TouchableOpacity, Text, Image, View, StyleSheet } from 'react-native'
-import { RootStackParamList } from "../../AppInner";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React from 'react';
+import {TouchableOpacity, Text, Image, View, StyleSheet} from 'react-native';
+import {RootStackParamList} from '../../AppInner';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import userSlice from '../slices/user';
-import { useAppDispatch } from "../store";
+import {useAppDispatch} from '../store';
 
+type Q1ScreenProps = NativeStackScreenProps<RootStackParamList, 'Q1'>;
 
-type Q1ScreenProps = NativeStackScreenProps<RootStackParamList,"Q1">;
-
-function Q1({ navigation }: Q1ScreenProps) {
+function Q1({navigation}: Q1ScreenProps) {
   const dispatch = useAppDispatch();
-  
-  const onHandle=(ans:string)=>{
-    save(ans)
-    navigation.navigate("Q2")
 
-  }
-  const save = async (ans:string) => {
+  const onHandle = (ans: string) => {
+    save(ans);
+    navigation.navigate('Q2');
+  };
+  const save = async (ans: string) => {
     try {
       // await AsyncStorage.setItem("q1", ans);
-      dispatch(
-        userSlice.actions.setQ1(ans),
-      );
+      dispatch(userSlice.actions.setQ1(ans));
     } catch (e) {
       // 오류 예외 처리
     }
-  }
+  };
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        Q1. 당신은 행복한가요?
-      </Text>
+      <Text style={styles.text}>Q1. 당신은 행복한가요?</Text>
 
       <Image
         style={styles.image}
         source={require('../assets/Lily.png')}
-        onError={(error) => console.log('Error loading image:', error)}
+        onError={error => console.log('Error loading image:', error)}
       />
 
-      <TouchableOpacity
-        onPress={() => onHandle("0")}
-        style={styles.button}>
-        <Text style={styles.buttonText}>
-          응
-        </Text>
+      <TouchableOpacity onPress={() => onHandle('0')} style={styles.button}>
+        <Text style={styles.buttonText}>응</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => onHandle("1")}
-        style={styles.button}>
-        <Text style={styles.buttonText}>
-          ...
-        </Text>
+      <TouchableOpacity onPress={() => onHandle('1')} style={styles.button}>
+        <Text style={styles.buttonText}>...</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -79,7 +65,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 70,
-    width:70,
+    width: 70,
     marginVertical: '10%',
   },
   button: {
@@ -91,7 +77,7 @@ const styles = StyleSheet.create({
     borderColor: '#a5a5a5',
     backgroundColor: 'white',
     shadowColor: '#8d8d8d',
-    shadowOffset: { width: 2, height: 2 },
+    shadowOffset: {width: 2, height: 2},
     shadowOpacity: 0.8,
     shadowRadius: 5,
   },
@@ -103,15 +89,10 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    width:50,
-    padding: 10,
-    borderRadius: 5,
-    borderWidth: 2,
-    bottom: 10,
+    bottom: 30,
   },
   backButtonText: {
-    fontSize: 10,
-    color: '#8d8d8d',
+    color: '#717171',
   },
 });
 

@@ -9,8 +9,7 @@ import userSlice from '../slices/user';
 import { useSelector } from "react-redux";
 import { RootState } from "../store/reducer";
 
-type Q7ScreenProps = NativeStackScreenProps<RootStackParamList, 'Q7'>;
-function Q7({navigation}: Q7ScreenProps) {
+function Q8() {
   const q1Data = useSelector((state: RootState) => state.user.q1);
   const q2Data = useSelector((state: RootState) => state.user.q2);
   const q3Data = useSelector((state: RootState) => state.user.q3);
@@ -47,8 +46,8 @@ function Q7({navigation}: Q7ScreenProps) {
       // dispatch(
       //   userSlice.actions.setQ7(arr)
       // ) // 굳이 저장할 필요가 있나?
+      dispatch(userSlice.actions.setOk(true));
       await AsyncStorage.setItem('myData', JSON.stringify(myData));
-      navigation.navigate('Q8')
       }
     } catch (e) {
       // 오류 예외 처리
@@ -57,7 +56,7 @@ function Q7({navigation}: Q7ScreenProps) {
   
    return (
     <View style={styles.container}>
-      <Text style={styles.text}>Q7. 당신이 선호하는 활동을 골라주세요!</Text>
+      <Text style={styles.text}>Q8. 당신이 선호하는 활동을 골라주세요!</Text>
       <Image style={styles.image} source={require('../assets/Lily.png')} />
       <TouchableOpacity onPress={() => onHandleArr('0')} style={styles.button}>
         <Text style={styles.buttonText}>그림그리기</Text>
@@ -141,4 +140,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Q7;
+export default Q8;
