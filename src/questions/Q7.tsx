@@ -35,7 +35,7 @@ function Q7({navigation}: Q7ScreenProps) {
 
   const save =async () => {
     try {
-      if(arr.length==0){
+      if(Object.keys(buttonList).filter(key => buttonList[key].length==0){
         Alert.alert("하나 이상 골라주세요!")
       }
       else{
