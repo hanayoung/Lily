@@ -32,7 +32,7 @@ function App(): JSX.Element {
     ):
     
        <Lottie
-       source={require('./src/assets/rainbow.json')}
+       source={require('./src/assets/lottieLily.json')}
        autoPlay
        loop
      />

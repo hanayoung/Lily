@@ -26,6 +26,7 @@ export type LoggedInParamList = {
 
 export type RootStackParamList = {
   Start: undefined;
+  Name : undefined;
   Q1: undefined;
   Q2: undefined;
   Q3: undefined;
@@ -43,55 +44,87 @@ function AppInner() {
   const isLoggedIn = useSelector((state: RootState) => !!state.user.ok); // 이걸로 처음 접속하는 사용자인지 아닌지 구분하기
   const dispatch = useAppDispatch();
 
-  // r
+    useEffect(()=>{
+      const checkLoggedIn=async()=>{
+        const key = await AsyncStorage.getItem("myData"); // 저장되어 있는 값 가져오기
+        if(key!=null){ // 이미 접속한 적 있는 사용자
+          dispatch(userSlice.actions.setOk(true)); // Main 페이지로 이동할 수 있게끔 값 변경
+          dispatch(userSlice.actions.setQ5(JSON.parse(key).q5)) // Main에서 F/T 구분 시 이용하기 위해 담아두기
+        }else{
+          // 시작 화면 
+        }
+      }
+      checkLoggedIn();
+    },[]) // 처음 접속하는 사용자인지 아닌지 판별하기 위해서
 
-  return isLoggedIn ? (
-    <Tab.Navigator>
-      <Tab.Screen name="Main" component={Main} options={{title: '메인 화면'}} />
-    </Tab.Navigator>
-  ) : (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Stack.Screen
-        name="Start"
-        component={Start}
-        options={{title: '시작 화면'}}
-      />
-      <Stack.Screen
-        name="Q1"
-        component={Q1}
-        options={{title: '첫 번째 질문'}}
-      />
-      <Stack.Screen
-        name="Q2"
-        component={Q2}
-        options={{title: '두 번째 질문'}}
-      />
-      <Stack.Screen
-        name="Q3"
-        component={Q3}
-        options={{title: '세 번째 질문'}}
-      />
-      <Stack.Screen
-        name="Q4"
-        component={Q4}
-        options={{title: '네 번째 질문'}}
-      />
-      <Stack.Screen
-        name="Q5"
-        component={Q5}
-        options={{title: '다섯 번째 질문'}}
-      />
-      <Stack.Screen
-        name="Q6"
-        component={Q6}
-        options={{title: '여섯 번째 질문'}}
-      />
-      <Stack.Screen name="Q7" component={Q7} options={{title: '마지막 질문'}} />
-      <Stack.Screen name="Q8" component={Q8} options={{title: '릴리 고르기'}} />
-    </Stack.Navigator>
+  return (
+      isLoggedIn ? (
+        <Tab.Navigator
+        screenOptions={{
+          headerShown: false
+        }}>
+          <Tab.Screen
+            name="Main"
+            component={Main}
+            options={
+            {tabBarStyle: {display: 'none'}}
+            }
+          />      
+        </Tab.Navigator>
+      ) : (
+        <Stack.Navigator
+        screenOptions={{
+          headerShown: false
+        }}
+        >
+          <Stack.Screen
+            name="Start"
+            component={Start}
+            options={{title: '시작 화면'}}
+          />
+           <Stack.Screen
+            name="Q1"
+            component={Q1}
+            options={{title: '첫 번째 질문'}}
+          />
+           <Stack.Screen
+            name="Q2"
+            component={Q2}
+            options={{title: '두 번째 질문'}}
+          />
+           <Stack.Screen
+            name="Q3"
+            component={Q3}
+            options={{title: '세 번째 질문'}}
+          />
+          <Stack.Screen
+            name="Q4"
+            component={Q4}
+            options={{title: '네 번째 질문'}}
+          />
+          <Stack.Screen
+            name="Q5"
+            component={Q5}
+            options={{title: '다섯 번째 질문'}}
+          />
+          <Stack.Screen
+            name="Q6"
+            component={Q6}
+            options={{title: '여섯 번째 질문'}}
+          />
+          <Stack.Screen
+            name="Q7"
+            component={Q7}
+            options={{title: '마지막 질문'}}
+          />
+           <Stack.Screen
+            name="Q8"
+            component={Q8}
+            options={{title: '릴리 고르기'}}
+          />
+
+        </Stack.Navigator>
+      )
   );
 }
 /* 

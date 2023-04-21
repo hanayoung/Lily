@@ -34,20 +34,14 @@ function Q8() {
       }
       else{
       // await AsyncStorage.setItem("q3", ans);
-      const myData = {
-        q1: q1Data,
-        q2: q2Data,
-        q3: q3Data,
-        q4: q4Data,
-        q5: q5Data,
-        q6: q6Data,
-        q7: arr,
+      const myLily = {
+        // Lily 번호?
       };
       // dispatch(
       //   userSlice.actions.setQ7(arr)
       // ) // 굳이 저장할 필요가 있나?
       dispatch(userSlice.actions.setOk(true));
-      await AsyncStorage.setItem('myData', JSON.stringify(myData));
+      await AsyncStorage.setItem('myLily', JSON.stringify(myLily));
       }
     } catch (e) {
       // 오류 예외 처리
