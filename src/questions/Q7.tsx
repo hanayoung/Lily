@@ -1,4 +1,3 @@
-
 import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, Text, Image, View, StyleSheet} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -9,7 +8,6 @@ import userSlice from '../slices/user';
 import {useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
 import DoButton from '../components/DoButton';
-
 
 type Q7ScreenProps = NativeStackScreenProps<RootStackParamList, 'Q7'>;
 function Q7({navigation}: Q7ScreenProps) {
@@ -33,37 +31,36 @@ function Q7({navigation}: Q7ScreenProps) {
     console.log(Object.keys(buttonList).filter(key => buttonList[key]));
   };
 
-  const save =async () => {
+  const save = async () => {
     try {
-      if(Object.keys(buttonList).filter(key => buttonList[key].length==0){
-        Alert.alert("하나 이상 골라주세요!")
-      }
-      else{
-      // await AsyncStorage.setItem("q3", ans);
-      const myData = {
-        q1: q1Data,
-        q2: q2Data,
-        q3: q3Data,
-        q4: q4Data,
-        q5: q5Data,
-        q6: q6Data,
-        q7: Object.keys(buttonList).filter(key => buttonList[key]),
-      };
-      // dispatch(
-      //   userSlice.actions.setQ7(arr)
-      // ) // 굳이 저장할 필요가 있나?
-      await AsyncStorage.setItem('myData', JSON.stringify(myData));
-      navigation.navigate('Q8')
+      if (!Object.keys(buttonList).filter(key => buttonList[key])) {
+        Alert.alert('하나 이상 골라주세요!');
+      } else {
+        // await AsyncStorage.setItem("q3", ans);
+        const myData = {
+          q1: q1Data,
+          q2: q2Data,
+          q3: q3Data,
+          q4: q4Data,
+          q5: q5Data,
+          q6: q6Data,
+          q7: Object.keys(buttonList).filter(key => buttonList[key]),
+        };
+        // dispatch(
+        //   userSlice.actions.setQ7(arr)
+        // ) // 굳이 저장할 필요가 있나?
+        await AsyncStorage.setItem('myData', JSON.stringify(myData));
+        navigation.navigate('Q8');
       }
     } catch (e) {
       // 오류 예외 처리
     }
+  };
 
   useEffect(() => {}, [buttonList]);
 
   //"그림그리기","노래듣기","산책하기","책읽기","영화보기","쇼핑하기"
   return (
-
     <View style={styles.container}>
       <Text style={styles.text}>Q7. 당신이 선호하는 활동을 골라주세요!</Text>
       <Image style={styles.image} source={require('../assets/Lily.png')} />
