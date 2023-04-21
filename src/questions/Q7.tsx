@@ -8,6 +8,7 @@ import { useAppDispatch } from "../store";
 import userSlice from '../slices/user';
 import { useSelector } from "react-redux";
 import { RootState } from "../store/reducer";
+import DoButton from "../components/DoButton";
 
 type Q7ScreenProps = NativeStackScreenProps<RootStackParamList, 'Q7'>;
 function Q7({navigation}: Q7ScreenProps) {
@@ -64,24 +65,36 @@ function Q7({navigation}: Q7ScreenProps) {
     <View style={styles.container}>
       <Text style={styles.text}>Q7. 당신이 선호하는 활동을 골라주세요!</Text>
       <Image style={styles.image} source={require('../assets/Lily.png')} />
-      <TouchableOpacity onPress={() => toggleButton(0)} style={styles.button}>
-        <Text style={styles.buttonText}>그림그리기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => toggleButton(1)} style={styles.button}>
-        <Text style={styles.buttonText}>노래듣기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => toggleButton(2)} style={styles.button}>
-        <Text style={styles.buttonText}>산책하기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => toggleButton(3)} style={styles.button}>
-        <Text style={styles.buttonText}>책읽기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => toggleButton(4)} style={styles.button}>
-        <Text style={styles.buttonText}>영화보기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => toggleButton(5)} style={styles.button}>
-        <Text style={styles.buttonText}>쇼핑하기</Text>
-      </TouchableOpacity>
+      <DoButton
+        title="그림그리기"
+        onClick={() => toggleButton(0)}
+        state={buttonList[0]}
+      />
+      <DoButton
+        title="노래듣기"
+        onClick={() => toggleButton(1)}
+        state={buttonList[1]}
+      />
+      <DoButton
+        title="산책하기"
+        onClick={() => toggleButton(2)}
+        state={buttonList[2]}
+      />
+      <DoButton
+        title="책읽기"
+        onClick={() => toggleButton(3)}
+        state={buttonList[3]}
+      />
+      <DoButton
+        title="영화보기"
+        onClick={() => toggleButton(4)}
+        state={buttonList[4]}
+      />
+      <DoButton
+        title="쇼핑하기"
+        onClick={() => toggleButton(5)}
+        state={buttonList[5]}
+      />
       <TouchableOpacity style={styles.backButton} onPress={() => save()}>
         <Text style={styles.backButtonText}>완료</Text>
       </TouchableOpacity>
@@ -145,5 +158,6 @@ const styles = StyleSheet.create({
     color: '#777777',
   },
 });
+
 
 export default Q7;
