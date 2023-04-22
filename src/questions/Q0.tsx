@@ -1,6 +1,13 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, { useState } from 'react';
-import {TouchableOpacity, Text, Image, View, StyleSheet, TextInput} from 'react-native';
+import React, {useState} from 'react';
+import {
+  TouchableOpacity,
+  Text,
+  Image,
+  View,
+  StyleSheet,
+  TextInput,
+} from 'react-native';
 import {RootStackParamList} from '../../AppInner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import userSlice from '../slices/user';
@@ -10,15 +17,15 @@ type Q0ScreenProps = NativeStackScreenProps<RootStackParamList, 'Q0'>;
 
 function Q0({navigation}: Q0ScreenProps) {
   const dispatch = useAppDispatch();
-  const [name,setName] = useState("");
+  const [name, setName] = useState('');
 
   const onHandle = () => {
     save();
     navigation.navigate('Q1');
   };
-  const onHandleName = (text:string) => {
+  const onHandleName = (text: string) => {
     setName(text);
-  }
+  };
   const save = async () => {
     try {
       // await AsyncStorage.setItem("q1", ans);
@@ -37,18 +44,22 @@ function Q0({navigation}: Q0ScreenProps) {
         source={require('../assets/Lily.png')}
         onError={error => console.log('Error loading image:', error)}
       />
-
-      <TextInput
-        // style={styles.in}
-        placeholder='이름을 알려주세요'
-        autoCorrect={false}
-        value={name}
-        onChangeText={onHandleName}
-        onSubmitEditing={() => onHandle()}
-        multiline={false}
-        returnKeyType="done"
-      /> 
- {/* 엔터 누르면 넘어가긴 하는데 확인버튼 만들어야하나? */}
+      <View style={styles.wrapper}>
+        <TextInput
+          style={styles.in}
+          placeholder="이름을 알려주세요"
+          autoCorrect={false}
+          value={name}
+          onChangeText={onHandleName}
+          onSubmitEditing={() => onHandle()}
+          multiline={false}
+          returnKeyType="done"
+        />
+        <TouchableOpacity style={styles.confirm} onPress={() => onHandle()}>
+          <Text style={{color: 'white'}}>확인</Text>
+        </TouchableOpacity>
+        {/* 엔터 누르면 넘어가긴 하는데 확인버튼 만들어야하나? */}
+      </View>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={styles.backButton}>
@@ -59,6 +70,30 @@ function Q0({navigation}: Q0ScreenProps) {
 }
 
 const styles = StyleSheet.create({
+  confirm: {
+    marginLeft: 8,
+    paddingHorizontal: 16,
+    backgroundColor: '#b1b1b1',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    height: 50,
+  },
+  wrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    height: 60,
+  },
+  in: {
+    backgroundColor: '#f7f7f7',
+    paddingHorizontal: '10%',
+    textAlign: 'center',
+    borderRadius: 10,
+    fontSize: 16,
+    height: 50,
+  },
   container: {
     flex: 1,
     alignItems: 'center',
