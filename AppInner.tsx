@@ -1,11 +1,10 @@
 import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Alert, View} from 'react-native';
 import {useEffect} from 'react';
-import axios, {AxiosError} from 'axios';
 import Main from './src/Main';
 import Start from './src/Start';
+import Q0 from './src/questions/Q0';
 import Q1 from './src/questions/Q1';
 import Q2 from './src/questions/Q2';
 import Q3 from './src/questions/Q3';
@@ -26,7 +25,7 @@ export type LoggedInParamList = {
 
 export type RootStackParamList = {
   Start: undefined;
-  Name : undefined;
+  Q0 : undefined;
   Q1: undefined;
   Q2: undefined;
   Q3: undefined;
@@ -44,18 +43,18 @@ function AppInner() {
   const isLoggedIn = useSelector((state: RootState) => !!state.user.ok); // 이걸로 처음 접속하는 사용자인지 아닌지 구분하기
   const dispatch = useAppDispatch();
 
-    useEffect(()=>{
-      const checkLoggedIn=async()=>{
-        const key = await AsyncStorage.getItem("myData"); // 저장되어 있는 값 가져오기
-        if(key!=null){ // 이미 접속한 적 있는 사용자
-          dispatch(userSlice.actions.setOk(true)); // Main 페이지로 이동할 수 있게끔 값 변경
-          dispatch(userSlice.actions.setQ5(JSON.parse(key).q5)) // Main에서 F/T 구분 시 이용하기 위해 담아두기
-        }else{
-          // 시작 화면 
-        }
-      }
-      checkLoggedIn();
-    },[]) // 처음 접속하는 사용자인지 아닌지 판별하기 위해서
+    // useEffect(()=>{
+    //   const checkLoggedIn=async()=>{
+    //     const key = await AsyncStorage.getItem("myData"); // 저장되어 있는 값 가져오기
+    //     if(key!=null){ // 이미 접속한 적 있는 사용자
+    //       dispatch(userSlice.actions.setOk(true)); // Main 페이지로 이동할 수 있게끔 값 변경
+    //       dispatch(userSlice.actions.setQ5(JSON.parse(key).q5)) // Main에서 F/T 구분 시 이용하기 위해 담아두기
+    //     }else{
+    //       // 시작 화면 
+    //     }
+    //   }
+    //   checkLoggedIn();
+    // },[]) // 처음 접속하는 사용자인지 아닌지 판별하기 위해서
 
   return (
       isLoggedIn ? (
@@ -81,6 +80,11 @@ function AppInner() {
             name="Start"
             component={Start}
             options={{title: '시작 화면'}}
+          />
+          <Stack.Screen
+            name="Q0"
+            component={Q0}
+            options={{title: '이름'}}
           />
            <Stack.Screen
             name="Q1"

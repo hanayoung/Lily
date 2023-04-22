@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/reducer";
 
 function Q8() {
+  const name = useSelector((state: RootState) => state.user.name);
   const q1Data = useSelector((state: RootState) => state.user.q1);
   const q2Data = useSelector((state: RootState) => state.user.q2);
   const q3Data = useSelector((state: RootState) => state.user.q3);

@@ -21,7 +21,7 @@ function Start({navigation}: StartScreenProps) {
       <Text style={styles.click}>Click me!</Text>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('Q1');
+          navigation.navigate('Q0');
         }}>
         <Image style={styles.image} source={require('./assets/Lily.png')} />
       </TouchableOpacity>
