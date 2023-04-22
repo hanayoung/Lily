@@ -10,40 +10,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/reducer";
 
 function Q8() {
-  const name = useSelector((state: RootState) => state.user.name);
-  const q1Data = useSelector((state: RootState) => state.user.q1);
-  const q2Data = useSelector((state: RootState) => state.user.q2);
-  const q3Data = useSelector((state: RootState) => state.user.q3);
-  const q4Data = useSelector((state: RootState) => state.user.q4);
-  const q5Data = useSelector((state: RootState) => state.user.q5);
-  const q6Data = useSelector((state: RootState) => state.user.q6);
-
   const dispatch = useAppDispatch();
-
-  let arr: string[] = [];
-
-  const onHandleArr = (ans: string) => {
-    if (!arr.includes(ans)) {
-      arr.push(ans);
-    }
-  };
-
-  const save =async () => {
+  
+  const save = async () => {
     try {
-      if(arr.length==0){
-        Alert.alert("하나 이상 골라주세요!")
-      }
-      else{
-      // await AsyncStorage.setItem("q3", ans);
       const myLily = {
         // Lily 번호?
       };
-      // dispatch(
-      //   userSlice.actions.setQ7(arr)
-      // ) // 굳이 저장할 필요가 있나?
       dispatch(userSlice.actions.setOk(true));
       await AsyncStorage.setItem('myLily', JSON.stringify(myLily));
-      }
     } catch (e) {
       // 오류 예외 처리
     }
@@ -53,24 +28,6 @@ function Q8() {
     <View style={styles.container}>
       <Text style={styles.text}>Q8. 당신이 선호하는 활동을 골라주세요!</Text>
       <Image style={styles.image} source={require('../assets/Lily.png')} />
-      <TouchableOpacity onPress={() => onHandleArr('0')} style={styles.button}>
-        <Text style={styles.buttonText}>그림그리기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onHandleArr('1')} style={styles.button}>
-        <Text style={styles.buttonText}>노래듣기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onHandleArr('2')} style={styles.button}>
-        <Text style={styles.buttonText}>산책하기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onHandleArr('3')} style={styles.button}>
-        <Text style={styles.buttonText}>책읽기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onHandleArr('4')} style={styles.button}>
-        <Text style={styles.buttonText}>영화보기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => onHandleArr('5')} style={styles.button}>
-        <Text style={styles.buttonText}>쇼핑하기</Text>
-      </TouchableOpacity>
       <TouchableOpacity style={styles.backButton} onPress={() => save()}>
         <Text style={styles.backButtonText}>완료</Text>
       </TouchableOpacity>

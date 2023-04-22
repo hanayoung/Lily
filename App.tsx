@@ -30,7 +30,6 @@ function App(): JSX.Element {
       </Provider>
       // Lottie 화면이 출력됩니다
     ):
-    
        <Lottie
        source={require('./src/assets/lottieLily.json')}
        autoPlay

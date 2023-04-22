@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import moment from 'moment';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { RootState } from './store/reducer';
 import {Image} from 'react-native';
 import {
@@ -14,14 +14,25 @@ import {
   Pressable,
 } from 'react-native';
 import { useSelector } from 'react-redux';
+import LottieView from 'lottie-react-native';
+
 function Main() {
   const [modalVisible, setModalVisible] = useState(false);
   const [todo, setTodo] = useState('');
   const [advice, setAdvice] = useState('');
+  const [showAnimation, setShowAnimation] = useState(false);
   
   const API_URL = 'http://127.0.0.1:5000';
 
   const mbti = useSelector((state: RootState) => state.user.q5); // F / T 구별 질문 답변 가져오기
+  
+  const playAnimation = () => {
+    setShowAnimation(true);
+    setTimeout(() => {
+      setShowAnimation(false);
+    }, 5000);
+  };
+
   const load = () => {
     try {
       setModalVisible(!modalVisible);
@@ -34,7 +45,7 @@ function Main() {
     setModalVisible(!modalVisible);
     const value = await AsyncStorage.getItem('myData');
     if (value != null) {
-      if (Math.round(Math.random())) {
+      if (mbti=="0") {
         await getComfortApi(value);
       } else {
         await getAdviceApi(value);
@@ -88,6 +99,15 @@ function Main() {
     }
   };
 
+  const getUserData = async () => {
+    const value = await AsyncStorage.getItem('myData');
+    if (value != null) {
+      await getTodoApi(value);
+    } else {
+      console.log('value is null');
+    }
+  };
+
   useEffect(() => {
     const today = moment().format('MM-DD');
     const checkKeyExist = async () => {
@@ -98,19 +118,11 @@ function Main() {
       console.log("it already has key");
     }
     }
-    const getUserData = async () => {
-      const value = await AsyncStorage.getItem('myData');
-      if (value != null) {
-        await getTodoApi(value);
-      } else {
-        console.log('value is null');
-      }
-    };
     checkKeyExist();
   }, []);
 
   useEffect(()=>{
-    const getWord =async () =>{
+    const getWord = async () =>{
       const value = await AsyncStorage.getItem('myData');
       if (value != null) {
         if (mbti=="0") {
@@ -125,11 +137,21 @@ function Main() {
 
   return (
     <View style={styles.centeredView}>
+       {showAnimation && (
+        <LottieView
+          style={{ width: 200, height: 200 }}
+          source={require('./assets/rainbow.json')}
+          autoPlay
+          loop={false}
+        />
+      )}
+      <TouchableOpacity onPress={()=>load()}>
       <Text>Click me!</Text>
-      <TouchableOpacity onPress={() => load()}>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => playAnimation()}>
         <Image style={styles.image} source={require('./assets/Lily.png')} />
       </TouchableOpacity>
-
+     
       <Text style={{marginHorizontal: '12%'}}>{todo}</Text>
       <Modal
         animationType="slide"

@@ -47,9 +47,6 @@ function Q7({navigation}: Q7ScreenProps) {
           q6: q6Data,
           q7: Object.keys(buttonList).filter(key => buttonList[key]),
         };
-        // dispatch(
-        //   userSlice.actions.setQ7(arr)
-        // ) // 굳이 저장할 필요가 있나?
         await AsyncStorage.setItem('myData', JSON.stringify(myData));
         navigation.navigate('Q8');
       }

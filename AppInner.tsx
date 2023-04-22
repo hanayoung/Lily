@@ -43,18 +43,18 @@ function AppInner() {
   const isLoggedIn = useSelector((state: RootState) => !!state.user.ok); // 이걸로 처음 접속하는 사용자인지 아닌지 구분하기
   const dispatch = useAppDispatch();
 
-    // useEffect(()=>{
-    //   const checkLoggedIn=async()=>{
-    //     const key = await AsyncStorage.getItem("myData"); // 저장되어 있는 값 가져오기
-    //     if(key!=null){ // 이미 접속한 적 있는 사용자
-    //       dispatch(userSlice.actions.setOk(true)); // Main 페이지로 이동할 수 있게끔 값 변경
-    //       dispatch(userSlice.actions.setQ5(JSON.parse(key).q5)) // Main에서 F/T 구분 시 이용하기 위해 담아두기
-    //     }else{
-    //       // 시작 화면 
-    //     }
-    //   }
-    //   checkLoggedIn();
-    // },[]) // 처음 접속하는 사용자인지 아닌지 판별하기 위해서
+    useEffect(()=>{
+      const checkLoggedIn=async()=>{
+        const key = await AsyncStorage.getItem("myData"); // 저장되어 있는 값 가져오기
+        if(key!=null){ // 이미 접속한 적 있는 사용자
+          dispatch(userSlice.actions.setOk(true)); // Main 페이지로 이동할 수 있게끔 값 변경
+          dispatch(userSlice.actions.setQ5(JSON.parse(key).q5)) // Main에서 F/T 구분 시 이용하기 위해 담아두기
+        }else{
+          // 시작 화면 
+        }
+      }
+      checkLoggedIn();
+    },[]) // 처음 접속하는 사용자인지 아닌지 판별하기 위해서
 
   return (
       isLoggedIn ? (
