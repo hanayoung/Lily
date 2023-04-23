@@ -1,18 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import moment from 'moment';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {RootState} from './store/reducer';
 import {Image} from 'react-native';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Modal,
-  Alert,
-  Pressable,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Modal, Alert, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
 import {lilyArray} from './store/lilyArray';
@@ -31,7 +23,7 @@ function Main() {
 
   const API_URL = 'http://127.0.0.1:5000';
   const color = useSelector((state: RootState) => state.user.color);
-  const mbti = useSelector((state: RootState) => state.user.q5); // F / T 구별 질문 답변 가져오기
+  const mbti = useSelector((state: RootState) => state.user.q5); 
 
   const playAnimation = () => {
     setShowAnimation(true);
@@ -44,7 +36,6 @@ function Main() {
     try {
       setModalVisible(!modalVisible);
     } catch (e) {
-      // 오류 예외 처리
     }
   };
 
@@ -221,7 +212,6 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: 'white',
-    // fontWeight: 'bold',
     paddingHorizontal: '10%',
     paddingVertical: 0,
     fontSize: 10,
