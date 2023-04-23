@@ -10,7 +10,7 @@ const initialState = {
   q6: '',
   q7: [],
   ok: false,
-  color: -1,
+  color: 0,
 };
 const user = createSlice({
   name: 'user',
