@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import moment from 'moment';
 import React, {useEffect, useRef, useState} from 'react';
-import { RootState } from './store/reducer';
+import {RootState} from './store/reducer';
 import {Image} from 'react-native';
 import {
   StyleSheet,
@@ -13,7 +13,7 @@ import {
   Alert,
   Pressable,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
 
 function Main() {
@@ -21,11 +21,11 @@ function Main() {
   const [todo, setTodo] = useState('');
   const [advice, setAdvice] = useState('');
   const [showAnimation, setShowAnimation] = useState(false);
-  
+
   const API_URL = 'http://127.0.0.1:5000';
 
   const mbti = useSelector((state: RootState) => state.user.q5); // F / T 구별 질문 답변 가져오기
-  
+
   const playAnimation = () => {
     setShowAnimation(true);
     setTimeout(() => {
@@ -45,7 +45,7 @@ function Main() {
     setModalVisible(!modalVisible);
     const value = await AsyncStorage.getItem('myData');
     if (value != null) {
-      if (mbti=="0") {
+      if (mbti == '0') {
         await getComfortApi(value);
       } else {
         await getAdviceApi(value);
@@ -92,7 +92,7 @@ function Main() {
   const isKeyExists = async (today: string) => {
     const isKeyExist = await AsyncStorage.getItem(today);
     if (isKeyExist !== null) {
-      setTodo(isKeyExist)
+      setTodo(isKeyExist);
       return true;
     } else {
       return false;
@@ -112,46 +112,46 @@ function Main() {
     const today = moment().format('MM-DD');
     const checkKeyExist = async () => {
       const isKeyExist = await isKeyExists(today);
-    if(!isKeyExist){
-      getUserData();
-    }else{
-      console.log("it already has key");
-    }
-    }
+      if (!isKeyExist) {
+        getUserData();
+      } else {
+        console.log('it already has key');
+      }
+    };
     checkKeyExist();
   }, []);
 
-  useEffect(()=>{
-    const getWord = async () =>{
+  useEffect(() => {
+    const getWord = async () => {
       const value = await AsyncStorage.getItem('myData');
       if (value != null) {
-        if (mbti=="0") {
+        if (mbti == '0') {
           await getComfortApi(value);
         } else {
           await getAdviceApi(value);
         }
       }
-    }
+    };
     getWord();
-  },[])
+  }, []);
 
   return (
     <View style={styles.centeredView}>
-       {showAnimation && (
+      {showAnimation && (
         <LottieView
-          style={{ width: 200, height: 200 }}
+          style={{width: 100, height: 100}}
           source={require('./assets/rainbow.json')}
           autoPlay
           loop={false}
         />
       )}
-      <TouchableOpacity onPress={()=>load()}>
-      <Text>Click me!</Text>
+      <TouchableOpacity onPress={() => load()}>
+        <Text>Click me!</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => playAnimation()}>
         <Image style={styles.image} source={require('./assets/Lily.png')} />
       </TouchableOpacity>
-     
+
       <Text style={{marginHorizontal: '12%'}}>{todo}</Text>
       <Modal
         animationType="slide"

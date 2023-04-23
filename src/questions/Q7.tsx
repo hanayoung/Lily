@@ -93,7 +93,7 @@ function Q7({navigation}: Q7ScreenProps) {
         state={buttonList[5]}
       />
       <TouchableOpacity style={styles.backButton} onPress={() => save()}>
-        <Text style={styles.backButtonText}>완료</Text>
+        <Text style={styles.backButtonText}>확인</Text>
       </TouchableOpacity>
     </View>
   );

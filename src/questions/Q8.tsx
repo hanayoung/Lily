@@ -1,17 +1,24 @@
-
-import React, { useState } from "react";
-import {TouchableOpacity,Text, Image,View, StyleSheet, Alert} from 'react-native'
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../AppInner";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useAppDispatch } from "../store";
+import React, {useState} from 'react';
+import {
+  TouchableOpacity,
+  Text,
+  Image,
+  View,
+  StyleSheet,
+  Alert,
+} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../AppInner';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useAppDispatch} from '../store';
 import userSlice from '../slices/user';
-import { useSelector } from "react-redux";
-import { RootState } from "../store/reducer";
+import {useSelector} from 'react-redux';
+import {RootState} from '../store/reducer';
+import LilyButton from '../components/LilyButton';
 
 function Q8() {
   const dispatch = useAppDispatch();
-  
+
   const save = async () => {
     try {
       const myLily = {
@@ -22,12 +29,17 @@ function Q8() {
     } catch (e) {
       // 오류 예외 처리
     }
-  }
-  
-   return (
+  };
+
+  return (
     <View style={styles.container}>
-      <Text style={styles.text}>Q8. 당신이 선호하는 활동을 골라주세요!</Text>
+      <Text style={styles.text}>
+        Q8. 당신과 함께 할 릴리의 색상을 선택해주세요.
+      </Text>
       <Image style={styles.image} source={require('../assets/Lily.png')} />
+      <LilyButton title={''} onClick={function (): void {
+        throw new Error('Function not implemented.');
+      } } state={false} />
       <TouchableOpacity style={styles.backButton} onPress={() => save()}>
         <Text style={styles.backButtonText}>완료</Text>
       </TouchableOpacity>
