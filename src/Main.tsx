@@ -20,6 +20,7 @@ function Main() {
   const [modalVisible, setModalVisible] = useState(false);
   const [todo, setTodo] = useState('');
   const [advice, setAdvice] = useState('');
+  const [isSucceed,setIsSucceed] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
 
   const API_URL = 'http://127.0.0.1:5000';
@@ -28,6 +29,7 @@ function Main() {
 
   const playAnimation = () => {
     setShowAnimation(true);
+    setIsSucceed(true);
     setTimeout(() => {
       setShowAnimation(false);
     }, 5000);
@@ -149,7 +151,10 @@ function Main() {
         <Text>Click me!</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => playAnimation()}>
-        <Image style={styles.image} source={require('./assets/Lily.png')} />
+        {isSucceed ? 
+        <Image style={styles.image} source={require('./assets/Lily.png')} /> 
+        :
+        <Image style={styles.image} source={require('./assets/SmileLily.png')}/>}
       </TouchableOpacity>
 
       <Text style={{marginHorizontal: '12%'}}>{todo}</Text>
