@@ -19,7 +19,7 @@ function App(): JSX.Element {
   useEffect(() => {
     setTimeout(() => {
       setAppLoaded(true);
-    }, 3000); // 3초간 appLoaded 상태가 false이기 때문에
+    }, 10000); // 3초간 appLoaded 상태가 false이기 때문에
   }, []);
 
   return (

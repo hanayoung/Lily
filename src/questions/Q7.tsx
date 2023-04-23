@@ -41,8 +41,10 @@ function Q7({navigation}: Q7ScreenProps) {
   const save = async () => {
     try {
       if (!Object.keys(buttonList).filter(key => buttonList[key])) {
+        console.log("!!!");
         Alert.alert('하나 이상 골라주세요!');
       } else {
+        console.log("???");
         // await AsyncStorage.setItem("q3", ans);
         const myData = {
           q1: q1Data,
@@ -54,6 +56,11 @@ function Q7({navigation}: Q7ScreenProps) {
           q7: Object.keys(buttonList).filter(key => buttonList[key]),
         };
         await AsyncStorage.setItem('myData', JSON.stringify(myData));
+        dispatch(
+          userSlice.actions.setQ7(
+            Object.keys(buttonList).filter(key => buttonList[key]),
+          ),
+        );
         navigation.navigate('Q8');
       }
     } catch (e) {
