@@ -18,14 +18,21 @@ import LilyButton from '../components/LilyButton';
 
 function Q8() {
   const dispatch = useAppDispatch();
+  const [lilyColor, setLilyColor] = useState(-1);
+
+  const onClick = (index: number) => {
+    setLilyColor(index);
+    console.log(lilyColor);
+  };
 
   const save = async () => {
     try {
-      const myLily = {
-        // Lily 번호?
-      };
-      dispatch(userSlice.actions.setOk(true));
-      await AsyncStorage.setItem('myLily', JSON.stringify(myLily));
+      if (lilyColor === -1) {
+        Alert.alert('하나 이상 골라주세요!');
+      } else {
+        dispatch(userSlice.actions.setOk(true));
+        await AsyncStorage.setItem('myLily', JSON.stringify(lilyColor));
+      }
     } catch (e) {
       // 오류 예외 처리
     }
@@ -36,10 +43,38 @@ function Q8() {
       <Text style={styles.text}>
         Q8. 당신과 함께 할 릴리의 색상을 선택해주세요.
       </Text>
-      <Image style={styles.image} source={require('../assets/Lily.png')} />
-      <LilyButton title={''} onClick={function (): void {
-        throw new Error('Function not implemented.');
-      } } state={false} />
+      <View style={styles.wrapper}>
+        <LilyButton
+          onClick={() => onClick(0)}
+          index={0}
+          state={0 === lilyColor}
+        />
+        <LilyButton
+          onClick={() => onClick(1)}
+          index={1}
+          state={1 === lilyColor}
+        />
+        <LilyButton
+          onClick={() => onClick(2)}
+          index={2}
+          state={2 === lilyColor}
+        />
+        <LilyButton
+          onClick={() => onClick(3)}
+          index={3}
+          state={3 === lilyColor}
+        />
+        <LilyButton
+          onClick={() => onClick(4)}
+          index={4}
+          state={4 === lilyColor}
+        />
+        <LilyButton
+          onClick={() => onClick(5)}
+          index={5}
+          state={5 === lilyColor}
+        />
+      </View>
       <TouchableOpacity style={styles.backButton} onPress={() => save()}>
         <Text style={styles.backButtonText}>완료</Text>
       </TouchableOpacity>
@@ -47,6 +82,13 @@ function Q8() {
   );
 }
 const styles = StyleSheet.create({
+  wrapper: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: '70%',
+    justifyContent: 'space-between',
+    marginTop: '5%',
+  },
   container: {
     flex: 1,
     alignItems: 'center',

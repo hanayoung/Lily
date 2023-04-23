@@ -1,21 +1,22 @@
 import React, {useEffect} from 'react';
 import {TouchableOpacity, Text, View, Image, StyleSheet} from 'react-native';
+import {lilyArray} from '../store/lilyArray';
 
 function LilyButton({
-  title,
+  index,
   onClick,
   state,
 }: {
-  title: string;
+  index: number;
   onClick: () => void;
   state: boolean;
 }) {
   return (
     <View>
       <TouchableOpacity
-        onPress={onClick}
+        onPress={() => onClick()}
         style={state ? styles.unClickedbutton : styles.Clickedbutton}>
-        <Image style={styles.image} source={require('../assets/Lily.png')} />
+        <Image style={styles.image} source={lilyArray[index].src} />
       </TouchableOpacity>
     </View>
   );
@@ -23,9 +24,9 @@ function LilyButton({
 
 const styles = StyleSheet.create({
   Clickedbutton: {
-    marginBottom: 10,
     width: '100%',
-    padding: 10,
+    paddingVertical: 20,
+    paddingHorizontal: 1,
     borderRadius: 5,
     borderWidth: 2,
     borderColor: '#a5a5a5',
@@ -35,24 +36,28 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 5,
     alignItems: 'center',
+    margin: '5%',
   },
   image: {
-    height: 70,
-    width: 70,
-    marginVertical: '8%',
+    height: 80,
+    width: 80,
+    marginVertical: '5%',
+    marginHorizontal: '2%',
   },
   unClickedbutton: {
-    marginBottom: 10,
-    width: 200,
-    padding: 10,
+    width: '100%',
+    paddingVertical: 20,
+    paddingHorizontal: 1,
     borderRadius: 5,
     borderWidth: 2,
-    backgroundColor: '#a5a5a5',
-    borderColor: 'white',
+    borderColor: '#a5a5a5',
+    backgroundColor: '#efefef',
     shadowColor: '#8d8d8d',
     shadowOffset: {width: 2, height: 2},
     shadowOpacity: 0.8,
     shadowRadius: 5,
+    alignItems: 'center',
+    margin: '5%',
   },
   buttonText: {
     fontSize: 14,

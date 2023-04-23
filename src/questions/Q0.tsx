@@ -20,8 +20,10 @@ function Q0({navigation}: Q0ScreenProps) {
   const [name, setName] = useState('');
 
   const onHandle = () => {
-    save();
-    navigation.navigate('Q1');
+    if (name) {
+      save();
+      navigation.navigate('Q1');
+    }
   };
   const onHandleName = (text: string) => {
     setName(text);

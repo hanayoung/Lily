@@ -1,14 +1,20 @@
-
-import React, { useEffect, useState } from "react";
-import {TouchableOpacity,Text, Image,View, StyleSheet, Alert} from 'react-native'
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../AppInner";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useAppDispatch } from "../store";
+import React, {useEffect, useState} from 'react';
+import {
+  TouchableOpacity,
+  Text,
+  Image,
+  View,
+  StyleSheet,
+  Alert,
+} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../AppInner';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useAppDispatch} from '../store';
 import userSlice from '../slices/user';
-import { useSelector } from "react-redux";
-import { RootState } from "../store/reducer";
-import DoButton from "../components/DoButton";
+import {useSelector} from 'react-redux';
+import {RootState} from '../store/reducer';
+import DoButton from '../components/DoButton';
 
 type Q7ScreenProps = NativeStackScreenProps<RootStackParamList, 'Q7'>;
 function Q7({navigation}: Q7ScreenProps) {
@@ -155,6 +161,5 @@ const styles = StyleSheet.create({
     color: '#777777',
   },
 });
-
 
 export default Q7;
