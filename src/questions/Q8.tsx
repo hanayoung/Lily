@@ -18,7 +18,7 @@ import LilyButton from '../components/LilyButton';
 
 function Q8() {
   const dispatch = useAppDispatch();
-  const [lilyColor, setLilyColor] = useState(-1);
+  const [lilyColor, setLilyColor] = useState(0);
 
   const onClick = (index: number) => {
     setLilyColor(index);
@@ -27,14 +27,10 @@ function Q8() {
 
   const save = async () => {
     try {
-      if (lilyColor === -1) {
-        Alert.alert('하나 이상 골라주세요!');
-      } else {
-        dispatch(userSlice.actions.setOk(true));
-        dispatch(userSlice.actions.setColor(lilyColor));
+      dispatch(userSlice.actions.setOk(true));
+      dispatch(userSlice.actions.setColor(lilyColor));
 
-        await AsyncStorage.setItem('myLily', JSON.stringify(lilyColor));
-      }
+      await AsyncStorage.setItem('myLily', JSON.stringify(lilyColor));
     } catch (e) {
       // 오류 예외 처리
     }
