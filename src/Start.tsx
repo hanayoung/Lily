@@ -1,5 +1,5 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {TouchableOpacity, Text, View, Image, StyleSheet} from 'react-native';
 import {RootStackParamList} from '../AppInner';
 

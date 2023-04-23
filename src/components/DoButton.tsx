@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {TouchableOpacity, Text, View, Image, StyleSheet} from 'react-native';
+import React from 'react';
+import {TouchableOpacity, Text, View, StyleSheet} from 'react-native';
 
 function DoButton({
   title,

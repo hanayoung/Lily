@@ -2,7 +2,6 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
 import {TouchableOpacity, Text, Image, View, StyleSheet} from 'react-native';
 import {RootStackParamList} from '../../AppInner';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAppDispatch} from '../store';
 import userSlice from '../slices/user';
 
@@ -11,29 +10,14 @@ type Q2ScreenProps = NativeStackScreenProps<RootStackParamList, 'Q2'>;
 function Q2({navigation}: Q2ScreenProps) {
   const dispatch = useAppDispatch();
 
-  // const onHandle=()=>{
-  //   load()
-  //   navigation.navigate("Q3")
-
-  // }
-  // const load = async () => {
-  //   try {
-  //     const value = await AsyncStorage.getItem('q1');
-  //     console.log("value : ",value)
-  //   } catch (e) {
-  //     // 오류 예외 처리
-  //   }
-  // }
   const onHandle = (ans: string) => {
     save(ans);
     navigation.navigate('Q3');
   };
   const save = async (ans: string) => {
     try {
-      // await AsyncStorage.setItem("q2", ans);
       dispatch(userSlice.actions.setQ2(ans));
     } catch (e) {
-      // 오류 예외 처리
     }
   };
   return (

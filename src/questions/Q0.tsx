@@ -1,13 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  Image,
-  View,
-  StyleSheet,
-  TextInput,
-} from 'react-native';
+import {TouchableOpacity, Text, Image, View, StyleSheet, TextInput} from 'react-native';
 import {RootStackParamList} from '../../AppInner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import userSlice from '../slices/user';
@@ -30,7 +23,6 @@ function Q0({navigation}: Q0ScreenProps) {
   };
   const save = async () => {
     try {
-      // await AsyncStorage.setItem("q1", ans);
       dispatch(userSlice.actions.setName(name));
       await AsyncStorage.setItem('myName', JSON.stringify(name));
     } catch (e) {
@@ -60,7 +52,6 @@ function Q0({navigation}: Q0ScreenProps) {
         <TouchableOpacity style={styles.confirm} onPress={() => onHandle()}>
           <Text style={{color: 'white'}}>확인</Text>
         </TouchableOpacity>
-        {/* 엔터 누르면 넘어가긴 하는데 확인버튼 만들어야하나? */}
       </View>
       <TouchableOpacity
         onPress={() => navigation.goBack()}

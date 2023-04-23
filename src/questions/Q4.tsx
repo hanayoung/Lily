@@ -2,7 +2,6 @@ import React from 'react';
 import {TouchableOpacity, Text, Image, View, StyleSheet} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../AppInner';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAppDispatch} from '../store';
 import userSlice from '../slices/user';
 
@@ -16,10 +15,8 @@ function Q4({navigation}: Q4ScreenProps) {
   };
   const save = async (ans: string) => {
     try {
-      // await AsyncStorage.setItem("q4", ans);
       dispatch(userSlice.actions.setQ4(ans));
     } catch (e) {
-      // 오류 예외 처리
     }
   };
   return (

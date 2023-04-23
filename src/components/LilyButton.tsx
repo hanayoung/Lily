@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {TouchableOpacity, Text, View, Image, StyleSheet} from 'react-native';
+import React from 'react';
+import {TouchableOpacity, View, Image, StyleSheet} from 'react-native';
 import {lilyArray} from '../store/lilyArray';
 
 function LilyButton({

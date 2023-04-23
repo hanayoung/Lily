@@ -7,13 +7,9 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../AppInner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAppDispatch} from '../store';
 import userSlice from '../slices/user';
-import {useSelector} from 'react-redux';
-import {RootState} from '../store/reducer';
 import LilyButton from '../components/LilyButton';
 
 function Q8() {

@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  Image,
-  View,
-  StyleSheet,
-  Alert,
-} from 'react-native';
+import {TouchableOpacity, Text, Image, View, StyleSheet, Alert} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../AppInner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -40,12 +33,9 @@ function Q7({navigation}: Q7ScreenProps) {
 
   const save = async () => {
     try {
-      if (!Object.keys(buttonList).filter(key => buttonList[key])) {
-        console.log("!!!");
+      if (Object.keys(buttonList).filter(key => buttonList[key]).length === 0) {
         Alert.alert('하나 이상 골라주세요!');
       } else {
-        console.log("???");
-        // await AsyncStorage.setItem("q3", ans);
         const myData = {
           q1: q1Data,
           q2: q2Data,

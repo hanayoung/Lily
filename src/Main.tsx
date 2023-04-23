@@ -22,7 +22,6 @@ function Main() {
   const [modalVisible, setModalVisible] = useState(false);
   const [todo, setTodo] = useState('');
   const [advice, setAdvice] = useState('');
-  const [isSucceed, setIsSucceed] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
   const [showGuide, setShowGuide] = useState(true);
 
@@ -36,7 +35,6 @@ function Main() {
 
   const playAnimation = () => {
     setShowAnimation(true);
-    setIsSucceed(true);
     setTimeout(() => {
       setShowAnimation(false);
     }, 5000);
@@ -62,15 +60,14 @@ function Main() {
     }
   };
 
-  const getTodoApi = async (value: string) => {
+  const getTodoApi = async (value: string, today: string) => {
     await axios
       .post(`${API_URL}/todo`, {value})
       .then(res => {
-        console.log(res.data.text);
         setTodo(res.data.text);
+        AsyncStorage.setItem(today,res.data.text)
       })
       .catch(err => {
-        console.log(err);
       });
   };
 
@@ -78,11 +75,9 @@ function Main() {
     await axios
       .post(`${API_URL}/comfort`, {value})
       .then(res => {
-        console.log(res.data.text);
         setAdvice(res.data.text);
       })
       .catch(err => {
-        console.log(err);
       });
   };
 
@@ -90,11 +85,9 @@ function Main() {
     await axios
       .post(`${API_URL}/advice`, {value})
       .then(res => {
-        console.log(res.data.text);
         setAdvice(res.data.text);
       })
       .catch(err => {
-        console.log(err);
       });
   };
 
@@ -108,12 +101,11 @@ function Main() {
     }
   };
 
-  const getUserData = async () => {
+  const getUserData = async (today:string) => {
     const value = await AsyncStorage.getItem('myData');
     if (value != null) {
-      await getTodoApi(value);
+      await getTodoApi(value,today);
     } else {
-      console.log('value is null');
     }
   };
 
@@ -122,9 +114,8 @@ function Main() {
     const checkKeyExist = async () => {
       const isKeyExist = await isKeyExists(today);
       if (!isKeyExist) {
-        getUserData();
+        getUserData(today);
       } else {
-        console.log('it already has key');
       }
     };
     checkKeyExist();
@@ -162,14 +153,6 @@ function Main() {
         <Text>Click me!</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => playAnimation()}>
-        {/* {isSucceed ? (
-        <Image style={styles.image} source={require('./assets/Lily.png')} />
-      ) : (
-        <Image
-          style={styles.image}
-          source={require('./assets/SmileLily.png')}
-        />
-      )} */}
         <Image style={styles.image} source={lilyArray[color].src} />
       </TouchableOpacity>
 

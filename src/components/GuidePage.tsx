@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const GuidePage = ({onClose}) => {
   const data = useSelector((state: RootState) => state.user);

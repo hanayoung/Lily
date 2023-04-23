@@ -13,13 +13,13 @@ function App(): JSX.Element {
   const [appLoaded, setAppLoaded] = useState(false);
 
   useEffect(() => {
-    SplashScreen.hide(); // splash screen은 바로 감춥니다!
+    SplashScreen.hide(); 
   }, []);
 
   useEffect(() => {
     setTimeout(() => {
       setAppLoaded(true);
-    }, 10000); // 3초간 appLoaded 상태가 false이기 때문에
+    }, 4000); 
   }, []);
 
   return (
@@ -29,7 +29,6 @@ function App(): JSX.Element {
         <AppInner/>
       </NavigationContainer>
       </Provider>
-      // Lottie 화면이 출력됩니다
     ):
     <View style={styles.container}>
        <Lottie

@@ -40,28 +40,27 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function AppInner() {
-  const isLoggedIn = useSelector((state: RootState) => !!state.user.ok); // 이걸로 처음 접속하는 사용자인지 아닌지 구분하기
+  const isLoggedIn = useSelector((state: RootState) => !!state.user.ok); 
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   const checkLoggedIn = async () => {
-  //     const key = await AsyncStorage.getItem('myData'); // 저장되어 있는 값 가져오기
-  //     const name = await AsyncStorage.getItem('myName');
-  //     const color = await AsyncStorage.getItem('myLily');
-  //     if (key != null) {
-  //       // 이미 접속한 적 있는 사용자
-  //       dispatch(userSlice.actions.setOk(true)); // Main 페이지로 이동할 수 있게끔 값 변경
-  //       dispatch(userSlice.actions.setQ5(JSON.parse(key).q5)); // Main에서 F/T 구분 시 이용하기 위해 담아두기
-  //       dispatch(userSlice.actions.setName(JSON.parse(name || '')));
-  //       if (color != null) {
-  //         dispatch(userSlice.actions.setColor(JSON.parse(color)));
-  //       }
-  //     } else {
-  //       // 시작 화면
-  //     }
-  //   };
-  //   checkLoggedIn();
-  // }, []); // 처음 접속하는 사용자인지 아닌지 판별하기 위해서
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      const key = await AsyncStorage.getItem('myData'); 
+      const name = await AsyncStorage.getItem('myName');
+      const color = await AsyncStorage.getItem('myLily');
+      if (key != null) {
+        dispatch(userSlice.actions.setOk(true)); 
+        dispatch(userSlice.actions.setQ5(JSON.parse(key).q5)); 
+        dispatch(userSlice.actions.setName(JSON.parse(name || '')));
+        if (color != null) {
+          dispatch(userSlice.actions.setColor(JSON.parse(color)));
+        }
+      } else {
+        // 시작 화면
+      }
+    };
+    checkLoggedIn();
+  }, []); 
 
   return isLoggedIn ? (
     <Tab.Navigator
@@ -120,20 +119,6 @@ function AppInner() {
     </Stack.Navigator>
   );
 }
-/* 
-한 번 설문조사 하기 전에는 설문조사 페이지, 설문조사한 후에는 메인페이지
-*/
+
 export default AppInner;
 
-{
-  /* Stack.Screen의 options는 어떤 것이 기본일지?라고 함 */
-}
-{
-  /* <Stack.Screen name="Details">
-                {props => <DetailsScreen {...props} />}  
-                {/* 추가적인 props를 넘길 때 사용 */
-}
-{
-  /* </Stack.Screen> */
-}
-// 리액트 네비게이션에서 자체적으로 safe area view를 적용해주고 있기 때문에 굳이 해주지 않아도 됨
