@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import AppInner from './AppInner';
+import { StyleSheet,View } from 'react-native';
 import {Provider} from 'react-redux';
 import store from './src/store';
 import { NavigationContainer } from '@react-navigation/native';
@@ -30,12 +31,22 @@ function App(): JSX.Element {
       </Provider>
       // Lottie 화면이 출력됩니다
     ):
+    <View style={styles.container}>
        <Lottie
-       source={require('./src/assets/lottieLily.json')}
+       source={require('./src/assets/winkLily.json')}
        autoPlay
        loop
      />
+     </View>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor:"#deefff",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})
 
 export default App;
