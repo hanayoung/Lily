@@ -31,6 +31,8 @@ function Q8() {
         Alert.alert('하나 이상 골라주세요!');
       } else {
         dispatch(userSlice.actions.setOk(true));
+        dispatch(userSlice.actions.setColor(lilyColor));
+
         await AsyncStorage.setItem('myLily', JSON.stringify(lilyColor));
       }
     } catch (e) {

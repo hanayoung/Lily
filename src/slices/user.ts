@@ -1,47 +1,51 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-  name:'',
-  q1:'',
-  q2:'',
-  q3:'',
-  q4:'',
-  q5:'',
-  q6:'',
-  q7:[],
-  ok:false,
+  name: '',
+  q1: '',
+  q2: '',
+  q3: '',
+  q4: '',
+  q5: '',
+  q6: '',
+  q7: [],
+  ok: false,
+  color: -1,
 };
 const user = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setName(state,action){
+    setName(state, action) {
       state.name = action.payload;
     },
-    setQ1(state,action){
+    setQ1(state, action) {
       state.q1 = action.payload;
     },
-    setQ2(state,action){
+    setQ2(state, action) {
       state.q2 = action.payload;
     },
-    setQ3(state,action){
+    setQ3(state, action) {
       state.q3 = action.payload;
     },
-    setQ4(state,action){
+    setQ4(state, action) {
       state.q4 = action.payload;
     },
-    setQ5(state,action){
+    setQ5(state, action) {
       state.q5 = action.payload;
     },
-    setQ6(state,action){
+    setQ6(state, action) {
       state.q6 = action.payload;
     },
-    setQ7(state,action){
+    setQ7(state, action) {
       state.q7 = action.payload;
     },
-    setOk(state,action){
+    setColor(state, action) {
+      state.color = action.payload;
+    },
+    setOk(state, action) {
       state.ok = action.payload;
-    }
+    },
   },
   extraReducers: builder => {},
 });

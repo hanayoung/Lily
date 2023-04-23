@@ -15,16 +15,17 @@ import {
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
+import {lilyArray} from './store/lilyArray';
 
 function Main() {
   const [modalVisible, setModalVisible] = useState(false);
   const [todo, setTodo] = useState('');
   const [advice, setAdvice] = useState('');
-  const [isSucceed,setIsSucceed] = useState(false);
+  const [isSucceed, setIsSucceed] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
 
   const API_URL = 'http://127.0.0.1:5000';
-
+  const color = useSelector((state: RootState) => state.user.color);
   const mbti = useSelector((state: RootState) => state.user.q5); // F / T 구별 질문 답변 가져오기
 
   const playAnimation = () => {
@@ -151,10 +152,15 @@ function Main() {
         <Text>Click me!</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => playAnimation()}>
-        {isSucceed ? 
-        <Image style={styles.image} source={require('./assets/Lily.png')} /> 
-        :
-        <Image style={styles.image} source={require('./assets/SmileLily.png')}/>}
+        {/* {isSucceed ? (
+          <Image style={styles.image} source={require('./assets/Lily.png')} />
+        ) : (
+          <Image
+            style={styles.image}
+            source={require('./assets/SmileLily.png')}
+          />
+        )} */}
+        <Image style={styles.image} source={lilyArray[color].src} />
       </TouchableOpacity>
 
       <Text style={{marginHorizontal: '12%'}}>{todo}</Text>
