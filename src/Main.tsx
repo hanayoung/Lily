@@ -16,6 +16,7 @@ import {
 import {useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
 import {lilyArray} from './store/lilyArray';
+import GuidePage from './components/GuidePage';
 
 function Main() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -23,6 +24,11 @@ function Main() {
   const [advice, setAdvice] = useState('');
   const [isSucceed, setIsSucceed] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
+  const [showGuide, setShowGuide] = useState(true);
+
+  const handleCloseGuide = () => {
+    setShowGuide(false);
+  };
 
   const API_URL = 'http://127.0.0.1:5000';
   const color = useSelector((state: RootState) => state.user.color);
@@ -138,7 +144,11 @@ function Main() {
     getWord();
   }, []);
 
-  return (
+  return showGuide ? (
+    <View>
+      <GuidePage onClose={handleCloseGuide} />
+    </View>
+  ) : (
     <View style={styles.centeredView}>
       {showAnimation && (
         <LottieView
@@ -153,13 +163,13 @@ function Main() {
       </TouchableOpacity>
       <TouchableOpacity onPress={() => playAnimation()}>
         {/* {isSucceed ? (
-          <Image style={styles.image} source={require('./assets/Lily.png')} />
-        ) : (
-          <Image
-            style={styles.image}
-            source={require('./assets/SmileLily.png')}
-          />
-        )} */}
+        <Image style={styles.image} source={require('./assets/Lily.png')} />
+      ) : (
+        <Image
+          style={styles.image}
+          source={require('./assets/SmileLily.png')}
+        />
+      )} */}
         <Image style={styles.image} source={lilyArray[color].src} />
       </TouchableOpacity>
 
