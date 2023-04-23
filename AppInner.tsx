@@ -13,6 +13,7 @@ import Q5 from './src/questions/Q5';
 import Q6 from './src/questions/Q6';
 import Q7 from './src/questions/Q7';
 import Q8 from './src/questions/Q8';
+import Result from './src/GuidePage';
 import userSlice from './src/slices/user';
 import {useSelector} from 'react-redux';
 import {RootState} from './src/store/reducer';
@@ -34,7 +35,8 @@ export type RootStackParamList = {
   Q6: undefined;
   Q7: undefined;
   Q8: undefined;
-}; // 다른 페이지에서도 계속해서 가져다 쓸 거기 때문에 export
+  Result: undefined;
+}; 
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -43,24 +45,24 @@ function AppInner() {
   const isLoggedIn = useSelector((state: RootState) => !!state.user.ok); 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const checkLoggedIn = async () => {
-      const key = await AsyncStorage.getItem('myData'); 
-      const name = await AsyncStorage.getItem('myName');
-      const color = await AsyncStorage.getItem('myLily');
-      if (key != null) {
-        dispatch(userSlice.actions.setOk(true)); 
-        dispatch(userSlice.actions.setQ5(JSON.parse(key).q5)); 
-        dispatch(userSlice.actions.setName(JSON.parse(name || '')));
-        if (color != null) {
-          dispatch(userSlice.actions.setColor(JSON.parse(color)));
-        }
-      } else {
-        // 시작 화면
-      }
-    };
-    checkLoggedIn();
-  }, []); 
+  // useEffect(() => {
+  //   const checkLoggedIn = async () => {
+  //     const key = await AsyncStorage.getItem('myData'); 
+  //     const name = await AsyncStorage.getItem('myName');
+  //     const color = await AsyncStorage.getItem('myLily');
+  //     if (key != null) {
+  //       dispatch(userSlice.actions.setOk(true)); 
+  //       dispatch(userSlice.actions.setQ5(JSON.parse(key).q5)); 
+  //       dispatch(userSlice.actions.setName(JSON.parse(name || '')));
+  //       if (color != null) {
+  //         dispatch(userSlice.actions.setColor(JSON.parse(color)));
+  //       }
+  //     } else {
+       
+  //     }
+  //   };
+  //   checkLoggedIn();
+  // }, []); 
 
   return isLoggedIn ? (
     <Tab.Navigator
@@ -83,7 +85,11 @@ function AppInner() {
         component={Start}
         options={{title: '시작 화면'}}
       />
-      <Stack.Screen name="Q0" component={Q0} options={{title: '이름'}} />
+      <Stack.Screen 
+        name="Q0" 
+        component={Q0} 
+        options={{title: '이름'}} 
+        />
       <Stack.Screen
         name="Q1"
         component={Q1}
@@ -114,8 +120,21 @@ function AppInner() {
         component={Q6}
         options={{title: '여섯 번째 질문'}}
       />
-      <Stack.Screen name="Q7" component={Q7} options={{title: '마지막 질문'}} />
-      <Stack.Screen name="Q8" component={Q8} options={{title: '릴리 고르기'}} />
+      <Stack.Screen 
+        name="Q7" 
+        component={Q7} 
+        options={{title: '마지막 질문'}} 
+        />
+      <Stack.Screen 
+        name="Q8" 
+        component={Q8} 
+        options={{title: '릴리 고르기'}} 
+        />
+      <Stack.Screen
+        name="Result"
+        component={Result}
+        options={{title: '결과지'}}
+      />
     </Stack.Navigator>
   );
 }

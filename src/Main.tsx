@@ -8,19 +8,13 @@ import {StyleSheet, Text, TouchableOpacity, View, Modal, Alert, Pressable} from 
 import {useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
 import {lilyArray} from './store/lilyArray';
-import GuidePage from './components/GuidePage';
+import GuidePage from './GuidePage';
 
 function Main() {
   const [modalVisible, setModalVisible] = useState(false);
   const [todo, setTodo] = useState('');
   const [advice, setAdvice] = useState('');
   const [showAnimation, setShowAnimation] = useState(false);
-  const [showGuide, setShowGuide] = useState(true);
-
-  const handleCloseGuide = () => {
-    setShowGuide(false);
-  };
-
   const API_URL = 'http://127.0.0.1:5000';
   const color = useSelector((state: RootState) => state.user.color);
   const mbti = useSelector((state: RootState) => state.user.q5); 
@@ -126,11 +120,7 @@ function Main() {
     getWord();
   }, []);
 
-  return showGuide ? (
-    <View>
-      <GuidePage onClose={handleCloseGuide} />
-    </View>
-  ) : (
+  return (
     <View style={styles.centeredView}>
       {showAnimation && (
         <LottieView

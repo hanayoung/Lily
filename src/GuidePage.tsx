@@ -1,11 +1,13 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
-import {RootState} from '../store/reducer';
+import {RootState} from './store/reducer';
+import userSlice from './slices/user';
+import { useAppDispatch } from './store';
 
-const GuidePage = ({onClose}) => {
+const GuidePage = () => {
   const data = useSelector((state: RootState) => state.user);
-  console.log(data.q7);
+  const dispatch = useAppDispatch();
   const todolist = [
     '그림그리기',
     '노래듣기',
@@ -15,14 +17,13 @@ const GuidePage = ({onClose}) => {
     '쇼핑하기',
   ];
   const todoStr = data.q7.map(index => todolist[index]).join(', ');
-  console.log(todoStr);
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      onClose();
-    }, 10000);
 
-    return () => clearTimeout(timeoutId);
-  }, []);
+  const save = async () => {
+    try {
+      dispatch(userSlice.actions.setOk(true));
+    } catch (e) {
+    }
+  };
 
   return (
     <View style={styles.guide}>
@@ -44,11 +45,13 @@ const GuidePage = ({onClose}) => {
         낼 수 있는 강한 사람입니다. {'\n\n\n\n'}릴리와 함께 더 좋은 내일을 위해
         노력해봐요!
       </Text>
+      <TouchableOpacity onPress={() => save()}>
       <Image
         style={styles.image}
-        source={require('../assets/Lily.png')}
+        source={require('./assets/Lily.png')}
         onError={error => console.log('Error loading image:', error)}
       />
+      </TouchableOpacity>
     </View>
   );
 };

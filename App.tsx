@@ -9,7 +9,6 @@ import SplashScreen from 'react-native-splash-screen';
 import Lottie from 'lottie-react-native';
 
 function App(): JSX.Element {
-
   const [appLoaded, setAppLoaded] = useState(false);
 
   useEffect(() => {

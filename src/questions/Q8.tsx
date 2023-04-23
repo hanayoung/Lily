@@ -1,34 +1,27 @@
 import React, {useState} from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  Image,
-  View,
-  StyleSheet,
-  Alert,
-} from 'react-native';
+import {TouchableOpacity, Text, View, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAppDispatch} from '../store';
+import {RootStackParamList} from '../../AppInner';
 import userSlice from '../slices/user';
 import LilyButton from '../components/LilyButton';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-function Q8() {
+type Q8ScreenProps = NativeStackScreenProps<RootStackParamList, 'Q8'>;
+function Q8({navigation}: Q8ScreenProps) {
   const dispatch = useAppDispatch();
   const [lilyColor, setLilyColor] = useState(0);
 
   const onClick = (index: number) => {
     setLilyColor(index);
-    console.log(lilyColor);
   };
 
   const save = async () => {
     try {
-      dispatch(userSlice.actions.setOk(true));
       dispatch(userSlice.actions.setColor(lilyColor));
-
       await AsyncStorage.setItem('myLily', JSON.stringify(lilyColor));
+      navigation.navigate('Result');
     } catch (e) {
-      // 오류 예외 처리
     }
   };
 
